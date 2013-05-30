@@ -1,7 +1,7 @@
 <?php
-  session_start();
+	session_start();
 
-	$ini_array = parse_ini_file("config.ini");
+	$ini_array = parse_ini_file("../config.ini");
 
 	if ($_SESSION['authenticated'] == true) {
 		include($ini_array["next"]);
