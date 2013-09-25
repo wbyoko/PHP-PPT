@@ -4,10 +4,12 @@
 	$error = null;
 	$ini_array = parse_ini_file("../config.ini");
 	$cookiehash = sha1($ini_array["remember"] . $_SERVER['REMOTE_ADDR'] . "wbyoko");
+	$remembered = strcmp($cookiehash, $_COOKIE["remember"]) === 0;
 
 	// logoff
 	if (!empty($_POST['logoff'])) {
 		$_POST = null;
+		$remembered = false;
 		$_SESSION['authenticated'] = false;
 		setcookie("remember", "", time() - 3600);
 	}
@@ -28,7 +30,7 @@
 	}
 
 	// display view
-	if ($_SESSION['authenticated'] == true || strcmp($cookiehash, $_COOKIE["remember"]) === 0) {
+	if ($_SESSION['authenticated'] == true || $remembered) {
 		include($ini_array["next"]);
 	} else { ?>
 		<!doctype html>
