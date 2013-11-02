@@ -24,6 +24,8 @@
 			if ($_POST['remember'] === "on") {
 				setcookie("remember", $cookiehash, time()+3600*24*365);
 			}
+			header("location: {$_SERVER['PHP_SELF']}");
+        		exit;
 		} else {
 			$error = 'Incorrect username or password';
 		}
